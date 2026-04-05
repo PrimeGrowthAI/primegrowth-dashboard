@@ -1,5 +1,5 @@
 // PrimeGrowth AI — Agent Data
-// All 46 agents organized by department for the Command Center dashboard
+// All 51 agents organized by department for the Command Center dashboard
 
 export type Department = "revenue" | "delivery" | "backoffice" | "meta";
 export type AgentStatus = "active" | "idle" | "error" | "future";
@@ -658,6 +658,73 @@ export const AGENTS: Agent[] = [
     mcpRequired: [],
     tasksCompleted: 12,
     lastActivity: "Last night",
+  },
+  {
+    id: "multi-agent-coordinator",
+    name: "multi-agent-coordinator",
+    displayName: "Multi-Agent Coordinator",
+    department: "meta",
+    model: "opus",
+    status: "idle",
+    description: "Coordinates concurrent agents with shared state, synchronization points, and distributed failure handling. Sourced from VoltAgent community library.",
+    tags: ["coordination", "concurrent", "fault-tolerance", "community"],
+    mcpRequired: [],
+    tasksCompleted: 0,
+    lastActivity: "Never",
+  },
+  {
+    id: "workflow-orchestrator",
+    name: "workflow-orchestrator",
+    displayName: "Workflow Orchestrator",
+    department: "meta",
+    model: "opus",
+    status: "idle",
+    description: "Designs and executes complex business process workflows with state machines, error handling, and transaction management. Sourced from VoltAgent community library.",
+    tags: ["workflow", "state-machine", "transactions", "community"],
+    mcpRequired: [],
+    tasksCompleted: 0,
+    lastActivity: "Never",
+  },
+  // ── REVENUE ENGINE (new) ─────────────────────────────────────────────────
+  {
+    id: "lemlist-manager",
+    name: "lemlist-manager",
+    displayName: "Lemlist Manager",
+    department: "revenue",
+    model: "opus",
+    status: "idle",
+    description: "Manages all lemlist outbound campaigns: create sequences, import leads, audit performance, rewrite copy. Requires lemlist MCP server.",
+    tags: ["lemlist", "campaigns", "outbound", "cold-email", "mcp"],
+    mcpRequired: ["lemlist"],
+    tasksCompleted: 0,
+    lastActivity: "Not connected",
+  },
+  // ── META LAYER (new) ─────────────────────────────────────────────────────
+  {
+    id: "dispatcher",
+    name: "dispatcher",
+    displayName: "Dispatcher",
+    department: "meta",
+    model: "opus",
+    status: "active",
+    description: "Master sequential task router. Accepts any plain-language request, builds a chain of specialist agents, passes shared context forward, and returns one synthesized output.",
+    tags: ["orchestration", "routing", "sequential", "multi-agent", "primary"],
+    mcpRequired: [],
+    tasksCompleted: 0,
+    lastActivity: "Ready",
+  },
+  {
+    id: "content-adapter",
+    name: "content-adapter",
+    displayName: "Content Adapter",
+    department: "meta",
+    model: "sonnet",
+    status: "idle",
+    description: "Repurposes content across formats: turns a LinkedIn post into an email, a video script into a blog, a proposal into a case study.",
+    tags: ["content", "repurpose", "cross-format", "adaptation"],
+    mcpRequired: [],
+    tasksCompleted: 0,
+    lastActivity: "Never",
   },
 ];
 
