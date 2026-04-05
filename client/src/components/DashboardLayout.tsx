@@ -11,12 +11,14 @@ import {
   Activity,
   Zap,
   ChevronRight,
+  Wifi,
 } from "lucide-react";
 import { AGENTS, getActiveAgents, DEPARTMENTS } from "@/lib/agents";
 
 const NAV_ITEMS = [
   { href: "/", label: "Command Center", icon: LayoutDashboard },
   { href: "/pipeline", label: "Pipeline", icon: GitBranch },
+  { href: "/bridge", label: "Local Bridge", icon: Wifi },
   { href: "/commands", label: "Slash Commands", icon: Terminal },
 ];
 
