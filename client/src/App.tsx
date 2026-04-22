@@ -7,6 +7,9 @@ import AgentDetail from "@/pages/AgentDetail";
 import Pipeline from "@/pages/Pipeline";
 import Commands from "@/pages/Commands";
 import BridgePanel from "@/pages/BridgePanel";
+import ClientDispatch from "@/pages/ClientDispatch";
+import ClientMargins from "@/pages/ClientMargins";
+import ClientLeads from "@/pages/ClientLeads";
 
 export default function App() {
   return (
@@ -18,6 +21,10 @@ export default function App() {
           <Route path="/pipeline" component={Pipeline} />
           <Route path="/bridge" component={BridgePanel} />
           <Route path="/commands" component={Commands} />
+          {/* Client-facing demo screens */}
+          <Route path="/demo/dispatch" component={ClientDispatch} />
+          <Route path="/demo/marges" component={ClientMargins} />
+          <Route path="/demo/leads" component={ClientLeads} />
         </Switch>
         <Toaster richColors position="bottom-right" />
       </BridgeProvider>

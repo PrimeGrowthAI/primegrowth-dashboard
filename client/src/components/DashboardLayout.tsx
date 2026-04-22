@@ -12,6 +12,9 @@ import {
   Zap,
   ChevronRight,
   Wifi,
+  CalendarCheck,
+  TrendingUp,
+  Users,
 } from "lucide-react";
 import { AGENTS, getActiveAgents, DEPARTMENTS } from "@/lib/agents";
 
@@ -20,6 +23,12 @@ const NAV_ITEMS = [
   { href: "/pipeline", label: "Pipeline", icon: GitBranch },
   { href: "/bridge", label: "Local Bridge", icon: Wifi },
   { href: "/commands", label: "Slash Commands", icon: Terminal },
+];
+
+const CLIENT_NAV_ITEMS = [
+  { href: "/demo/dispatch", label: "Dispatch", icon: CalendarCheck },
+  { href: "/demo/marges", label: "Marges & Finances", icon: TrendingUp },
+  { href: "/demo/leads", label: "Leads", icon: Users },
 ];
 
 const DEPT_COLORS: Record<string, string> = {
@@ -96,6 +105,34 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             );
           })}
         </nav>
+
+        {/* Client Demo Nav */}
+        <div className="px-3 py-3 mt-1 border-t border-border/60">
+          <p className="px-3 text-[10px] uppercase tracking-widest text-muted-foreground mb-2">
+            Tableau de bord client
+          </p>
+          <div className="space-y-0.5">
+            {CLIENT_NAV_ITEMS.map(({ href, label, icon: Icon }) => {
+              const isActive = location === href;
+              return (
+                <Link key={href} href={href}>
+                  <div
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-all",
+                      isActive
+                        ? "bg-emerald-400/15 text-emerald-400 font-medium"
+                        : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                    )}
+                  >
+                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    {label}
+                    {isActive && <ChevronRight className="w-3 h-3 ml-auto" />}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
 
         {/* Departments */}
         <div className="px-3 py-3 mt-1">
