@@ -1,10 +1,10 @@
-// PrimeGrowth AI — Client Demo: Margins & Finances View
-// Designed for screenshots, reels, and Meta ads
+// PrimeGrowth AI — Client Demo: Marges & Finances View
+// Brand palette: #0F172A navy bg, #0081F2 primary blue, #22D3EE cyan accent
 
 import DashboardLayout from "@/components/DashboardLayout";
 import { cn } from "@/lib/utils";
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   LineChart, Line, CartesianGrid,
 } from "recharts";
 import { TrendingUp, DollarSign, FileText, CheckCircle2, Clock, AlertCircle } from "lucide-react";
@@ -29,8 +29,8 @@ const MONTHLY_DATA = [
 ];
 
 const INVOICE_CONFIG: Record<string, { color: string; icon: typeof CheckCircle2 }> = {
-  "Payée ✓": { color: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20", icon: CheckCircle2 },
-  "Envoyée": { color: "text-blue-400 bg-blue-400/10 border-blue-400/20", icon: Clock },
+  "Payée ✓": { color: "text-[#10B981] bg-[#10B981]/10 border-[#10B981]/20", icon: CheckCircle2 },
+  "Envoyée": { color: "text-[#22D3EE] bg-[#22D3EE]/10 border-[#22D3EE]/20", icon: Clock },
   "À facturer": { color: "text-amber-400 bg-amber-400/10 border-amber-400/20", icon: AlertCircle },
   "—": { color: "text-slate-400/60 bg-slate-400/5 border-slate-400/10", icon: Clock },
 };
@@ -38,7 +38,7 @@ const INVOICE_CONFIG: Record<string, { color: string; icon: typeof CheckCircle2 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-card border border-border/60 rounded-lg px-3 py-2 text-xs shadow-xl">
+      <div className="bg-[#0D1526] border border-white/10 rounded-lg px-3 py-2 text-xs shadow-xl">
         <p className="font-semibold text-foreground mb-1">{label}</p>
         {payload.map((p: any) => (
           <p key={p.name} style={{ color: p.color }}>{p.name}: ${p.value?.toLocaleString()}</p>
@@ -50,10 +50,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export default function ClientMargins() {
-  const completedJobs = JOBS.filter((j) => j.status === "completed");
   const activeJobs = JOBS.filter((j) => j.status === "active" || j.status === "upcoming");
-  const totalRevenue = JOBS.reduce((s, j) => s + j.quote, 0);
-  const totalCosts = JOBS.reduce((s, j) => s + j.labour + j.materials, 0);
   const avgMargin = Math.round(JOBS.reduce((s, j) => s + j.margin, 0) / JOBS.length);
   const pendingInvoices = JOBS.filter((j) => j.invoiceStatus === "À facturer" || j.invoiceStatus === "Envoyée").reduce((s, j) => s + j.quote, 0);
 
@@ -71,8 +68,8 @@ export default function ClientMargins() {
               Mis à jour automatiquement — QuickBooks + QuickBooks Time
             </p>
           </div>
-          <div className="flex items-center gap-2 text-xs text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-3 py-1.5 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="flex items-center gap-2 text-xs text-[#0081F2] bg-[#0081F2]/10 border border-[#0081F2]/25 px-3 py-1.5 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0081F2] animate-pulse" />
             Sync en temps réel
           </div>
         </div>
@@ -80,14 +77,14 @@ export default function ClientMargins() {
         {/* KPI row */}
         <div className="grid grid-cols-4 gap-3">
           {[
-            { label: "Revenus (30j)", value: `$${(24350).toLocaleString()}`, sub: "+8% vs mois dernier", color: "text-emerald-400", bg: "bg-emerald-400/10", icon: DollarSign },
-            { label: "Marge moyenne", value: `${avgMargin}%`, sub: "Tous chantiers actifs", color: "text-violet-400", bg: "bg-violet-400/10", icon: TrendingUp },
-            { label: "À encaisser", value: `$${pendingInvoices.toLocaleString()}`, sub: "2 factures en attente", color: "text-amber-400", bg: "bg-amber-400/10", icon: FileText },
-            { label: "Chantiers actifs", value: activeJobs.length, sub: "Cette semaine", color: "text-blue-400", bg: "bg-blue-400/10", icon: CheckCircle2 },
+            { label: "Revenus (30j)", value: `$${(24350).toLocaleString()}`, sub: "+8% vs mois dernier", color: "text-[#0081F2]", bg: "bg-[#0081F2]/10 border-[#0081F2]/20", icon: DollarSign },
+            { label: "Marge moyenne", value: `${avgMargin}%`, sub: "Tous chantiers actifs", color: "text-[#22D3EE]", bg: "bg-[#22D3EE]/10 border-[#22D3EE]/20", icon: TrendingUp },
+            { label: "À encaisser", value: `$${pendingInvoices.toLocaleString()}`, sub: "2 factures en attente", color: "text-amber-400", bg: "bg-amber-400/10 border-amber-400/20", icon: FileText },
+            { label: "Chantiers actifs", value: activeJobs.length, sub: "Cette semaine", color: "text-[#6366F1]", bg: "bg-[#6366F1]/10 border-[#6366F1]/20", icon: CheckCircle2 },
           ].map(({ label, value, sub, color, bg, icon: Icon }) => (
-            <div key={label} className="rounded-xl border border-border/60 bg-card p-4">
+            <div key={label} className={cn("rounded-xl border bg-card p-4", bg)}>
               <div className="flex items-center gap-2 mb-2">
-                <div className={cn("w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0", bg)}>
+                <div className={cn("w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-white/5")}>
                   <Icon className={cn("w-3.5 h-3.5", color)} />
                 </div>
                 <p className="text-[10px] text-muted-foreground uppercase tracking-wide">{label}</p>
@@ -111,8 +108,8 @@ export default function ClientMargins() {
                 <XAxis dataKey="month" tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="revenue" name="Revenus" fill="rgba(52,211,153,0.7)" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="costs" name="Coûts" fill="rgba(99,102,241,0.5)" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="revenue" name="Revenus" fill="#0081F2" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="costs" name="Coûts" fill="rgba(0,129,242,0.25)" radius={[3, 3, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -128,7 +125,7 @@ export default function ClientMargins() {
                 <XAxis dataKey="month" tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} axisLine={false} tickLine={false} />
                 <YAxis domain={[60, 72]} tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}%`} />
                 <Tooltip content={<CustomTooltip />} />
-                <Line type="monotone" dataKey="margin" name="Marge" stroke="#a78bfa" strokeWidth={2} dot={{ fill: "#a78bfa", r: 3 }} />
+                <Line type="monotone" dataKey="margin" name="Marge" stroke="#22D3EE" strokeWidth={2.5} dot={{ fill: "#22D3EE", r: 3, strokeWidth: 0 }} activeDot={{ r: 5, fill: "#22D3EE", strokeWidth: 0 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -136,19 +133,19 @@ export default function ClientMargins() {
 
         {/* Job margin table */}
         <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
-          <div className="px-4 py-3 border-b border-border/60 flex items-center justify-between">
+          <div className="px-4 py-3 border-b border-white/[0.06] flex items-center justify-between">
             <h2 className="text-sm font-semibold text-foreground" style={{ fontFamily: "'Syne', sans-serif" }}>
               Détail par chantier
             </h2>
             <span className="text-[10px] text-muted-foreground uppercase tracking-widest">{JOBS.length} chantiers</span>
           </div>
-          <div className="divide-y divide-border/40">
+          <div className="divide-y divide-white/[0.05]">
             {JOBS.map((job) => {
               const totalCost = job.labour + job.materials;
               const invoiceCfg = INVOICE_CONFIG[job.invoiceStatus];
               const InvoiceIcon = invoiceCfg.icon;
               return (
-                <div key={job.name} className="px-4 py-3 flex items-center gap-4 hover:bg-white/3 transition-colors">
+                <div key={job.name} className="px-4 py-3 flex items-center gap-4 hover:bg-white/[0.02] transition-colors">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-medium text-foreground">{job.name}</span>
@@ -164,12 +161,12 @@ export default function ClientMargins() {
                   <div className="w-28 flex-shrink-0">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-[10px] text-muted-foreground">Marge</span>
-                      <span className="text-xs font-bold text-violet-400">{job.margin}%</span>
+                      <span className="text-xs font-bold text-[#0081F2]">{job.margin}%</span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+                    <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-violet-500 to-violet-400"
-                        style={{ width: `${job.margin}%` }}
+                        className="h-full rounded-full"
+                        style={{ width: `${job.margin}%`, background: "linear-gradient(90deg, #0081F2, #22D3EE)" }}
                       />
                     </div>
                   </div>

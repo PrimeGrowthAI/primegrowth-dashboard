@@ -1,9 +1,9 @@
 // PrimeGrowth AI — Client Demo: Leads & Pipeline View
-// Designed for screenshots, reels, and Meta ads
+// Brand palette: #0F172A navy bg, #0081F2 primary blue, #22D3EE cyan accent
 
 import DashboardLayout from "@/components/DashboardLayout";
 import { cn } from "@/lib/utils";
-import { Phone, MessageSquare, Star, ArrowRight, Clock, DollarSign, TrendingUp, Zap } from "lucide-react";
+import { Phone, MessageSquare, Star, ArrowRight, Clock, Zap } from "lucide-react";
 
 interface Lead {
   id: string;
@@ -99,24 +99,23 @@ const LEADS: Lead[] = [
   },
 ];
 
-const STAGE_CONFIG: Record<Lead["stage"], { color: string; dot: string }> = {
-  "Nouveau": { color: "text-sky-400 bg-sky-400/10 border-sky-400/20", dot: "bg-sky-400" },
-  "Contacté": { color: "text-blue-400 bg-blue-400/10 border-blue-400/20", dot: "bg-blue-400" },
-  "Soumission envoyée": { color: "text-amber-400 bg-amber-400/10 border-amber-400/20", dot: "bg-amber-400" },
-  "Gagné": { color: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20", dot: "bg-emerald-400" },
-  "Perdu": { color: "text-red-400 bg-red-400/10 border-red-400/20", dot: "bg-red-400" },
+const STAGE_CONFIG: Record<Lead["stage"], { color: string; dot: string; bar: string }> = {
+  "Nouveau":           { color: "text-[#22D3EE] bg-[#22D3EE]/10 border-[#22D3EE]/20",  dot: "bg-[#22D3EE]",  bar: "bg-[#22D3EE]/70" },
+  "Contacté":          { color: "text-[#0081F2] bg-[#0081F2]/10 border-[#0081F2]/20",  dot: "bg-[#0081F2]",  bar: "bg-[#0081F2]/70" },
+  "Soumission envoyée":{ color: "text-amber-400 bg-amber-400/10 border-amber-400/20",  dot: "bg-amber-400",  bar: "bg-amber-400/70" },
+  "Gagné":             { color: "text-[#10B981] bg-[#10B981]/10 border-[#10B981]/20",  dot: "bg-[#10B981]",  bar: "bg-[#10B981]/70" },
+  "Perdu":             { color: "text-red-400 bg-red-400/10 border-red-400/20",         dot: "bg-red-400",    bar: "bg-red-400/70" },
 };
 
 const SOURCE_CONFIG: Record<string, string> = {
-  "Google Ads": "text-blue-400 bg-blue-400/10 border-blue-400/20",
-  "Référence": "text-violet-400 bg-violet-400/10 border-violet-400/20",
-  "Instagram": "text-pink-400 bg-pink-400/10 border-pink-400/20",
-  "Facebook": "text-indigo-400 bg-indigo-400/10 border-indigo-400/20",
+  "Google Ads": "text-[#0081F2] bg-[#0081F2]/10 border-[#0081F2]/20",
+  "Référence":  "text-[#6366F1] bg-[#6366F1]/10 border-[#6366F1]/20",
+  "Instagram":  "text-pink-400 bg-pink-400/10 border-pink-400/20",
+  "Facebook":   "text-[#22D3EE] bg-[#22D3EE]/10 border-[#22D3EE]/20",
 };
 
 export default function ClientLeads() {
   const newLeads = LEADS.filter((l) => l.stage === "Nouveau" || l.stage === "Contacté").length;
-  const wonLeads = LEADS.filter((l) => l.stage === "Gagné").length;
   const autoHandled = LEADS.filter((l) => l.autoHandled).length;
   const pipelineValue = 18350;
 
@@ -134,7 +133,7 @@ export default function ClientLeads() {
               Synchronisé avec GoHighLevel — réponses automatiques activées
             </p>
           </div>
-          <div className="flex items-center gap-2 text-xs text-violet-400 bg-violet-400/10 border border-violet-400/20 px-3 py-1.5 rounded-full">
+          <div className="flex items-center gap-2 text-xs text-[#22D3EE] bg-[#22D3EE]/10 border border-[#22D3EE]/25 px-3 py-1.5 rounded-full">
             <Zap className="w-3 h-3" />
             Automatisation active
           </div>
@@ -143,12 +142,12 @@ export default function ClientLeads() {
         {/* KPIs */}
         <div className="grid grid-cols-4 gap-3">
           {[
-            { label: "Nouveaux leads (7j)", value: newLeads + 3, sub: "3 via Google Ads", color: "text-sky-400", bg: "bg-sky-400/10" },
-            { label: "Pipeline total", value: `$${pipelineValue.toLocaleString()}`, sub: "5 opportunités actives", color: "text-emerald-400", bg: "bg-emerald-400/10" },
-            { label: "Gérés auto (IA)", value: `${autoHandled}/${LEADS.length}`, sub: "Réponse < 2 min", color: "text-violet-400", bg: "bg-violet-400/10" },
-            { label: "Taux de conversion", value: "38%", sub: "vs 22% avant système", color: "text-amber-400", bg: "bg-amber-400/10" },
+            { label: "Nouveaux leads (7j)", value: newLeads + 3, sub: "3 via Google Ads",       color: "text-[#22D3EE]", bg: "bg-[#22D3EE]/10 border-[#22D3EE]/20" },
+            { label: "Pipeline total",      value: `$${pipelineValue.toLocaleString()}`, sub: "5 opportunités actives", color: "text-[#0081F2]", bg: "bg-[#0081F2]/10 border-[#0081F2]/20" },
+            { label: "Gérés auto (IA)",     value: `${autoHandled}/${LEADS.length}`,    sub: "Réponse < 2 min",        color: "text-[#6366F1]", bg: "bg-[#6366F1]/10 border-[#6366F1]/20" },
+            { label: "Taux de conversion",  value: "38%",                               sub: "vs 22% avant système",   color: "text-amber-400", bg: "bg-amber-400/10 border-amber-400/20" },
           ].map(({ label, value, sub, color, bg }) => (
-            <div key={label} className="rounded-xl border border-border/60 bg-card p-4">
+            <div key={label} className={cn("rounded-xl border bg-card p-4", bg)}>
               <p className="text-[10px] text-muted-foreground uppercase tracking-wide mb-2">{label}</p>
               <p className={cn("text-xl font-bold", color)} style={{ fontFamily: "'Syne', sans-serif" }}>{value}</p>
               <p className="text-[10px] text-muted-foreground mt-0.5">{sub}</p>
@@ -163,10 +162,10 @@ export default function ClientLeads() {
           </h3>
           <div className="flex items-end gap-2">
             {[
-              { stage: "Nouveau", count: 3, pct: 100, color: "bg-sky-400/70" },
-              { stage: "Contacté", count: 2, pct: 67, color: "bg-blue-400/70" },
-              { stage: "Soumission", count: 1, pct: 33, color: "bg-amber-400/70" },
-              { stage: "Gagné", count: 1, pct: 33, color: "bg-emerald-400/70" },
+              { stage: "Nouveau",    count: 3, pct: 100, color: "bg-[#22D3EE]/70" },
+              { stage: "Contacté",   count: 2, pct: 67,  color: "bg-[#0081F2]/70" },
+              { stage: "Soumission", count: 1, pct: 33,  color: "bg-amber-400/70" },
+              { stage: "Gagné",      count: 1, pct: 33,  color: "bg-[#10B981]/70" },
             ].map(({ stage, count, pct, color }) => (
               <div key={stage} className="flex-1 flex flex-col items-center gap-1">
                 <span className="text-xs font-bold text-foreground">{count}</span>
@@ -188,12 +187,14 @@ export default function ClientLeads() {
                 key={lead.id}
                 className={cn(
                   "rounded-xl border bg-card p-4 transition-all",
-                  lead.hot ? "border-amber-400/30 shadow-[0_0_20px_rgba(251,191,36,0.07)]" : "border-border/60"
+                  lead.hot
+                    ? "border-[#0081F2]/35 shadow-[0_0_20px_rgba(0,129,242,0.08)]"
+                    : "border-border/60"
                 )}
               >
                 <div className="flex items-start gap-4">
                   {/* Avatar */}
-                  <div className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 text-sm font-bold text-primary">
+                  <div className="w-9 h-9 rounded-full bg-[#0081F2]/10 border border-[#0081F2]/20 flex items-center justify-center flex-shrink-0 text-sm font-bold text-[#0081F2]">
                     {lead.name.charAt(0)}
                   </div>
 
@@ -206,7 +207,7 @@ export default function ClientLeads() {
                         </span>
                       )}
                       {lead.autoHandled && (
-                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-violet-400/15 text-violet-400 border border-violet-400/20 font-medium flex items-center gap-1">
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#22D3EE]/15 text-[#22D3EE] border border-[#22D3EE]/25 font-medium flex items-center gap-1">
                           <Zap className="w-2 h-2" /> AUTO
                         </span>
                       )}
@@ -220,13 +221,13 @@ export default function ClientLeads() {
 
                     <div className="flex items-center gap-3 mt-1 flex-wrap">
                       <span className="text-xs text-muted-foreground">{lead.type} — {lead.city}</span>
-                      <span className="text-xs font-semibold text-emerald-400">{lead.value}</span>
+                      <span className="text-xs font-semibold text-[#0081F2]">{lead.value}</span>
                     </div>
 
                     <p className="text-xs text-muted-foreground/70 mt-1.5 leading-relaxed">{lead.note}</p>
 
                     <div className="flex items-center gap-1.5 mt-2 text-[11px] text-muted-foreground">
-                      <ArrowRight className="w-3 h-3 text-primary/60" />
+                      <ArrowRight className="w-3 h-3 text-[#0081F2]/60" />
                       <span>{lead.nextAction}</span>
                     </div>
                   </div>
@@ -237,11 +238,11 @@ export default function ClientLeads() {
                       {lead.receivedAt}
                     </div>
                     <div className="flex gap-1.5 justify-end">
-                      <button className="w-7 h-7 rounded-lg bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center hover:bg-emerald-400/20 transition-colors">
-                        <Phone className="w-3 h-3 text-emerald-400" />
+                      <button className="w-7 h-7 rounded-lg bg-[#10B981]/10 border border-[#10B981]/20 flex items-center justify-center hover:bg-[#10B981]/20 transition-colors">
+                        <Phone className="w-3 h-3 text-[#10B981]" />
                       </button>
-                      <button className="w-7 h-7 rounded-lg bg-blue-400/10 border border-blue-400/20 flex items-center justify-center hover:bg-blue-400/20 transition-colors">
-                        <MessageSquare className="w-3 h-3 text-blue-400" />
+                      <button className="w-7 h-7 rounded-lg bg-[#0081F2]/10 border border-[#0081F2]/20 flex items-center justify-center hover:bg-[#0081F2]/20 transition-colors">
+                        <MessageSquare className="w-3 h-3 text-[#0081F2]" />
                       </button>
                     </div>
                   </div>

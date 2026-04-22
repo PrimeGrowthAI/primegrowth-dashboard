@@ -1,5 +1,5 @@
 // PrimeGrowth AI — Client Demo: Dispatch & Schedule View
-// Designed for screenshots, reels, and Meta ads
+// Brand palette: #0F172A navy bg, #0081F2 primary blue, #22D3EE cyan accent
 
 import DashboardLayout from "@/components/DashboardLayout";
 import { cn } from "@/lib/utils";
@@ -97,30 +97,33 @@ const JOBS: Job[] = [
 const READINESS_CONFIG = {
   ready: {
     label: "Site Prêt",
-    color: "text-emerald-400",
-    bg: "bg-emerald-400/10 border-emerald-400/25",
-    dot: "bg-emerald-400",
+    color: "text-[#22D3EE]",
+    bg: "bg-[#22D3EE]/10 border-[#22D3EE]/25",
+    bar: "bg-[#22D3EE]",
     icon: CheckCircle2,
+    glow: "shadow-[0_0_20px_rgba(34,211,238,0.10)]",
   },
   pending: {
     label: "En attente",
     color: "text-amber-400",
     bg: "bg-amber-400/10 border-amber-400/25",
-    dot: "bg-amber-400",
+    bar: "bg-amber-400",
     icon: Clock,
+    glow: "",
   },
   blocked: {
     label: "Bloqué",
     color: "text-red-400",
     bg: "bg-red-400/10 border-red-400/25",
-    dot: "bg-red-400",
+    bar: "bg-red-400",
     icon: AlertTriangle,
+    glow: "shadow-[0_0_20px_rgba(248,113,113,0.10)]",
   },
 };
 
 const STATUS_CONFIG = {
-  active: { label: "En cours", color: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20" },
-  upcoming: { label: "À venir", color: "text-blue-400 bg-blue-400/10 border-blue-400/20" },
+  active: { label: "En cours", color: "text-[#0081F2] bg-[#0081F2]/10 border-[#0081F2]/20" },
+  upcoming: { label: "À venir", color: "text-[#22D3EE]/80 bg-[#22D3EE]/10 border-[#22D3EE]/20" },
   completed: { label: "Terminé", color: "text-slate-400 bg-slate-400/10 border-slate-400/20" },
 };
 
@@ -146,7 +149,7 @@ export default function ClientDispatch() {
           </div>
           <div className="text-right">
             <p className="text-xs text-muted-foreground">Valeur en cours</p>
-            <p className="text-xl font-bold text-emerald-400" style={{ fontFamily: "'Syne', sans-serif" }}>
+            <p className="text-xl font-bold text-[#0081F2]" style={{ fontFamily: "'Syne', sans-serif" }}>
               ${totalValue.toLocaleString()}
             </p>
           </div>
@@ -155,13 +158,13 @@ export default function ClientDispatch() {
         {/* Stats row */}
         <div className="grid grid-cols-4 gap-3">
           {[
-            { label: "Actifs aujourd'hui", value: activeJobs.length, color: "text-emerald-400", bg: "bg-emerald-400/10" },
-            { label: "À venir", value: upcomingJobs.length, color: "text-blue-400", bg: "bg-blue-400/10" },
-            { label: "Sites bloqués", value: blockedJobs.length, color: "text-red-400", bg: "bg-red-400/10" },
-            { label: "Équipes déployées", value: 2, color: "text-violet-400", bg: "bg-violet-400/10" },
+            { label: "Actifs aujourd'hui", value: activeJobs.length, color: "text-[#0081F2]", bg: "bg-[#0081F2]/10 border-[#0081F2]/20" },
+            { label: "À venir", value: upcomingJobs.length, color: "text-[#22D3EE]", bg: "bg-[#22D3EE]/10 border-[#22D3EE]/20" },
+            { label: "Sites bloqués", value: blockedJobs.length, color: "text-red-400", bg: "bg-red-400/10 border-red-400/20" },
+            { label: "Équipes déployées", value: 2, color: "text-[#6366F1]", bg: "bg-[#6366F1]/10 border-[#6366F1]/20" },
           ].map(({ label, value, color, bg }) => (
-            <div key={label} className="rounded-xl border border-border/60 bg-card p-4 flex items-center gap-3">
-              <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0", bg)}>
+            <div key={label} className={cn("rounded-xl border bg-card p-4 flex items-center gap-3", bg)}>
+              <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-white/5")}>
                 <span className={cn("text-lg font-bold", color)} style={{ fontFamily: "'Syne', sans-serif" }}>{value}</span>
               </div>
               <p className="text-[11px] text-muted-foreground uppercase tracking-wide leading-tight">{label}</p>
@@ -181,15 +184,16 @@ export default function ClientDispatch() {
                 key={job.id}
                 className={cn(
                   "rounded-xl border bg-card overflow-hidden transition-all",
+                  readiness.glow,
                   job.siteReadiness === "blocked"
-                    ? "border-red-400/30 shadow-[0_0_20px_rgba(248,113,113,0.08)]"
+                    ? "border-red-400/30"
                     : job.siteReadiness === "ready" && job.status === "active"
-                    ? "border-emerald-400/30 shadow-[0_0_20px_rgba(52,211,153,0.08)]"
+                    ? "border-[#0081F2]/40"
                     : "border-border/60"
                 )}
               >
-                {/* Card top bar */}
-                <div className={cn("h-1 w-full", readiness.dot)} />
+                {/* Top accent bar */}
+                <div className={cn("h-[3px] w-full", readiness.bar)} />
 
                 <div className="p-4 space-y-3">
                   {/* Title row */}
@@ -209,28 +213,28 @@ export default function ClientDispatch() {
                       </div>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <p className="text-sm font-bold text-foreground">{job.value}</p>
+                      <p className="text-sm font-bold text-[#0081F2]">{job.value}</p>
                       <p className="text-[10px] text-muted-foreground">{job.type}</p>
                     </div>
                   </div>
 
                   {/* Details row */}
                   <div className="grid grid-cols-3 gap-2">
-                    <div className="rounded-lg bg-white/3 border border-border/40 px-3 py-2">
+                    <div className="rounded-lg bg-white/[0.03] border border-white/[0.06] px-3 py-2">
                       <p className="text-[10px] text-muted-foreground uppercase tracking-wide mb-0.5">Équipe</p>
                       <div className="flex items-center gap-1">
                         <Users className="w-3 h-3 text-muted-foreground" />
                         <span className="text-xs font-medium text-foreground">{job.crewCount} techs</span>
                       </div>
                     </div>
-                    <div className="rounded-lg bg-white/3 border border-border/40 px-3 py-2">
+                    <div className="rounded-lg bg-white/[0.03] border border-white/[0.06] px-3 py-2">
                       <p className="text-[10px] text-muted-foreground uppercase tracking-wide mb-0.5">Début</p>
                       <div className="flex items-center gap-1">
                         <Calendar className="w-3 h-3 text-muted-foreground" />
                         <span className="text-xs font-medium text-foreground">{job.startDate}</span>
                       </div>
                     </div>
-                    <div className="rounded-lg bg-white/3 border border-border/40 px-3 py-2">
+                    <div className="rounded-lg bg-white/[0.03] border border-white/[0.06] px-3 py-2">
                       <p className="text-[10px] text-muted-foreground uppercase tracking-wide mb-0.5">Surface</p>
                       <span className="text-xs font-medium text-foreground">{job.surface}</span>
                     </div>
@@ -247,7 +251,7 @@ export default function ClientDispatch() {
 
                   {/* Last Slack message */}
                   {job.lastMessage && (
-                    <div className="flex items-start gap-2 pt-1 border-t border-border/40">
+                    <div className="flex items-start gap-2 pt-1 border-t border-white/[0.05]">
                       <MessageSquare className="w-3.5 h-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
                       <div className="flex-1 min-w-0">
                         <p className="text-xs text-muted-foreground/80 leading-relaxed truncate">{job.lastMessage}</p>
@@ -263,18 +267,18 @@ export default function ClientDispatch() {
 
         {/* Crew overview */}
         <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
-          <div className="px-4 py-3 border-b border-border/60">
+          <div className="px-4 py-3 border-b border-white/[0.06]">
             <h2 className="text-sm font-semibold text-foreground" style={{ fontFamily: "'Syne', sans-serif" }}>
               Équipes déployées
             </h2>
           </div>
-          <div className="divide-y divide-border/40">
+          <div className="divide-y divide-white/[0.05]">
             {[
-              { name: "Équipe A", members: "Marco Ricci + Yannick Bouchard", job: "Résidence Tremblay", status: "Sur le chantier", hours: "3h 20min", color: "bg-emerald-400" },
-              { name: "Équipe B", members: "Kevin Lapointe + Sébastien Morin", job: "Condo Beaumont (demain)", status: "En transit", hours: "—", color: "bg-blue-400" },
+              { name: "Équipe A", members: "Marco Ricci + Yannick Bouchard", job: "Résidence Tremblay", status: "Sur le chantier", hours: "3h 20min", dot: "bg-[#0081F2]" },
+              { name: "Équipe B", members: "Kevin Lapointe + Sébastien Morin", job: "Condo Beaumont (demain)", status: "En transit", hours: "—", dot: "bg-[#22D3EE]" },
             ].map((crew) => (
-              <div key={crew.name} className="px-4 py-3 flex items-center gap-4">
-                <div className={cn("w-2 h-2 rounded-full flex-shrink-0", crew.color)} />
+              <div key={crew.name} className="px-4 py-3 flex items-center gap-4 hover:bg-white/[0.02] transition-colors">
+                <div className={cn("w-2 h-2 rounded-full flex-shrink-0", crew.dot)} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-semibold text-foreground">{crew.name}</span>

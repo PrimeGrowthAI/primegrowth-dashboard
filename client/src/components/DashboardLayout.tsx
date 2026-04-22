@@ -74,10 +74,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="px-5 py-3 border-b border-border/60">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0081F2] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0081F2]"></span>
             </span>
-            <span className="text-xs text-emerald-400 font-medium">
+            <span className="text-xs text-[#0081F2] font-medium">
               {activeAgents.length} agents active
             </span>
           </div>
@@ -120,7 +120,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-all",
                       isActive
-                        ? "bg-emerald-400/15 text-emerald-400 font-medium"
+                        ? "bg-[#0081F2]/15 text-[#0081F2] font-medium"
                         : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                     )}
                   >
